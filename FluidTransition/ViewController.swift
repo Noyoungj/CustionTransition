@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     private func nextViewAction(_ sender: UIButton) {
         let nextVC = SecondViewController()
         nextVC.transitioningDelegate = self
+        transition = MyCustomTransition(originFrame: self.button.frame, originPoint: self.button.center)
         nextVC.modalPresentationStyle = .custom
         self.present(nextVC, animated: true)
     }
@@ -42,9 +43,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         addSubviews()
         setLayouts()
-        
-        transition = MyCustomTransition(originFrame: self.button.frame, originPoint: self.button.center)
-        
     }
 
 
@@ -54,5 +52,8 @@ extension ViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
         return transition
     }
-
+    
+    func animationController(forDismissed dismissed: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
+        return DismissAnimation()
+    }
 }

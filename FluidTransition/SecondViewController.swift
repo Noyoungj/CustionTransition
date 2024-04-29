@@ -12,6 +12,10 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .blue
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            self.dismiss(animated: true)
+        }
     }
 
 

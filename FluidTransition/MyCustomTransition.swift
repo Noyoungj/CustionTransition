@@ -17,7 +17,7 @@ final class MyCustomTransition: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     func transitionDuration(using transitionContext: (any UIViewControllerContextTransitioning)?) -> TimeInterval {
-        return 5
+        return 0.1
     }
     
     func animateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
@@ -51,5 +51,19 @@ final class MyCustomTransition: NSObject, UIViewControllerAnimatedTransitioning 
         }
         
         transitionContext.completeTransition(true)
+    }
+    
+    func interruptibleAnimator(using transitionContext: any UIViewControllerContextTransitioning) -> any UIViewImplicitlyAnimating {
+        let animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+              // 애니메이션 동작 정의
+          }
+        print("방해받음.")
+          return animator
+    }
+}
+
+extension MyCustomTransition: UIViewControllerInteractiveTransitioning {
+    func startInteractiveTransition(_ transitionContext: any UIViewControllerContextTransitioning) {
+        print("시작해용~")
     }
 }
