@@ -10,6 +10,9 @@
 		3643DA8228348296885EBC96 /* Pods_FluidTransition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71BFD8D3FFE85D8E012E18B /* Pods_FluidTransition.framework */; };
 		411681302CFF70B1A7DA1F76 /* Pods_FluidTransitionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE533020B3F40AACF666E964 /* Pods_FluidTransitionTests.framework */; };
 		922B866D2BDF721D007F3D44 /* DismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922B866C2BDF721D007F3D44 /* DismissAnimation.swift */; };
+		922B867D2BDF8651007F3D44 /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922B867C2BDF8651007F3D44 /* InteractiveTransition.swift */; };
+		922B867F2BDF8844007F3D44 /* UIInteractablePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922B867E2BDF8844007F3D44 /* UIInteractablePresentationController.swift */; };
+		922B86812BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */; };
 		92423A132BDB8AAA00881705 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92423A122BDB8AAA00881705 /* SecondViewController.swift */; };
 		92423A152BDB8ACA00881705 /* MyCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92423A142BDB8ACA00881705 /* MyCustomTransition.swift */; };
 		92C733EB2BDB8981007D51ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C733EA2BDB8981007D51ED /* AppDelegate.swift */; };
@@ -45,6 +48,9 @@
 		4E30CD1896A7CC914A789B29 /* Pods-FluidTransition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluidTransition.debug.xcconfig"; path = "Target Support Files/Pods-FluidTransition/Pods-FluidTransition.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6F723926F38794F7452726 /* Pods-FluidTransitionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluidTransitionTests.debug.xcconfig"; path = "Target Support Files/Pods-FluidTransitionTests/Pods-FluidTransitionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		922B866C2BDF721D007F3D44 /* DismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimation.swift; sourceTree = "<group>"; };
+		922B867C2BDF8651007F3D44 /* InteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveTransition.swift; sourceTree = "<group>"; };
+		922B867E2BDF8844007F3D44 /* UIInteractablePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInteractablePresentationController.swift; sourceTree = "<group>"; };
+		922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractivePercentDrivenTransition.swift; sourceTree = "<group>"; };
 		92423A122BDB8AAA00881705 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		92423A142BDB8ACA00881705 /* MyCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTransition.swift; sourceTree = "<group>"; };
 		92C733E72BDB8981007D51ED /* FluidTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluidTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,13 +144,16 @@
 				92C733EA2BDB8981007D51ED /* AppDelegate.swift */,
 				92C733EC2BDB8981007D51ED /* SceneDelegate.swift */,
 				92C733EE2BDB8981007D51ED /* ViewController.swift */,
+				92423A122BDB8AAA00881705 /* SecondViewController.swift */,
 				92C733F02BDB8981007D51ED /* Main.storyboard */,
 				92C733F32BDB8982007D51ED /* Assets.xcassets */,
 				92C733F52BDB8982007D51ED /* LaunchScreen.storyboard */,
 				92C733F82BDB8982007D51ED /* Info.plist */,
-				92423A122BDB8AAA00881705 /* SecondViewController.swift */,
 				92423A142BDB8ACA00881705 /* MyCustomTransition.swift */,
 				922B866C2BDF721D007F3D44 /* DismissAnimation.swift */,
+				922B867C2BDF8651007F3D44 /* InteractiveTransition.swift */,
+				922B867E2BDF8844007F3D44 /* UIInteractablePresentationController.swift */,
+				922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */,
 			);
 			path = FluidTransition;
 			sourceTree = "<group>";
@@ -420,7 +429,10 @@
 				92C733EF2BDB8981007D51ED /* ViewController.swift in Sources */,
 				92C733EB2BDB8981007D51ED /* AppDelegate.swift in Sources */,
 				92C733ED2BDB8981007D51ED /* SceneDelegate.swift in Sources */,
+				922B86812BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift in Sources */,
+				922B867F2BDF8844007F3D44 /* UIInteractablePresentationController.swift in Sources */,
 				922B866D2BDF721D007F3D44 /* DismissAnimation.swift in Sources */,
+				922B867D2BDF8651007F3D44 /* InteractiveTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

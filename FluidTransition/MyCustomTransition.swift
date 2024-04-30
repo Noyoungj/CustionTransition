@@ -21,6 +21,12 @@ final class MyCustomTransition: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     func animateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
+        transitionAnimation(transitionContext)
+
+    }
+    
+    
+    func transitionAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         
         guard let toView = transitionContext.view(forKey: .to) else { return }
@@ -35,35 +41,23 @@ final class MyCustomTransition: NSObject, UIViewControllerAnimatedTransitioning 
         toView.layer.cornerRadius = 20
         toView.alpha = 0
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5,options: .curveEaseOut, animations: {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
             toView.transform = .identity
             toView.alpha = 1
         }) { _ in
-            toView.translatesAutoresizingMaskIntoConstraints = false
-            toView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-            toView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-            toView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
-            toView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-            
+            toView.snp.makeConstraints { make in
+                make.edges.equalTo(containerView)
+            }
             UIView.animate(withDuration: 1) {
                 containerView.layoutIfNeeded()
             }
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
-        
-        transitionContext.completeTransition(true)
     }
     
-    func interruptibleAnimator(using transitionContext: any UIViewControllerContextTransitioning) -> any UIViewImplicitlyAnimating {
-        let animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
-              // 애니메이션 동작 정의
-          }
-        print("방해받음.")
-          return animator
+    func animationEnded(_ transitionCompleted: Bool) {
+        print("animationEnded \(transitionCompleted)")
     }
 }
 
-extension MyCustomTransition: UIViewControllerInteractiveTransitioning {
-    func startInteractiveTransition(_ transitionContext: any UIViewControllerContextTransitioning) {
-        print("시작해용~")
-    }
-}
+

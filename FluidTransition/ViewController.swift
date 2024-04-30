@@ -11,6 +11,9 @@ import Then
 
 class ViewController: UIViewController {
     var transition : MyCustomTransition?
+    var dismissal: InteractiveTransition?
+    var uiPresentation: UIInteractablePresentationController?
+    
     private let button = UIButton().then{
         $0.setTitle("다음 페이지", for: .normal)
         $0.backgroundColor = .red
@@ -35,6 +38,9 @@ class ViewController: UIViewController {
         nextVC.transitioningDelegate = self
         transition = MyCustomTransition(originFrame: self.button.frame, originPoint: self.button.center)
         nextVC.modalPresentationStyle = .custom
+        self.uiPresentation = UIInteractablePresentationController(presentedViewController: nextVC, presenting: self)
+        dismissal = InteractiveTransition(gesture: self.uiPresentation!.panGestureRecognizer, animator: DismissAnimation(), presented: nextVC)
+
         self.present(nextVC, animated: true)
     }
     override func viewDidLoad() {
@@ -43,6 +49,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         addSubviews()
         setLayouts()
+
     }
 
 
@@ -55,5 +62,16 @@ extension ViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
         return DismissAnimation()
+    }
+    
+    func interactionControllerForDismissal(using animator: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
+        print("사라진다아")
+        return dismissal
+    }
+    
+    open func presentationController(forPresented presented: UIViewController,
+                                     presenting: UIViewController?,
+                                     source: UIViewController) -> UIPresentationController? {
+        return uiPresentation
     }
 }
