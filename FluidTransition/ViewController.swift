@@ -65,7 +65,7 @@ extension ViewController: UIViewControllerTransitioningDelegate {
     }
     
     func interactionControllerForDismissal(using animator: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
-        print("사라진다아")
+        
         return dismissal
     }
     

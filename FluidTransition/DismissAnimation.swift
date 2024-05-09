@@ -8,8 +8,10 @@
 import UIKit
 
 class DismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+    private var animator: UIViewImplicitlyAnimating?
+        
     func transitionDuration(using transitionContext: (any UIViewControllerContextTransitioning)?) -> TimeInterval {
-        return 0.5
+        return 1
     }
     
     func animateTransition(using transitionContext: any UIViewControllerContextTransitioning) {
@@ -20,22 +22,49 @@ class DismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func interruptibleAnimator(using transitionContext: any UIViewControllerContextTransitioning) -> any UIViewImplicitlyAnimating {
-        guard let fromView = transitionContext.view(forKey: .from) else { return UIViewPropertyAnimator() }
-        
-        let animator = UIViewPropertyAnimator(duration: 0.2, curve: .linear) {
-            fromView.alpha = 0
+        if self.animator != nil {
+            return self.animator!
         }
+        
+        let rootVC = transitionContext.viewController(forKey: .from)
+        let _fromVC = rootVC?.navigationController?.topViewController ?? rootVC
+        guard let fromVC = _fromVC,
+              let toVC = transitionContext.viewController(forKey: .to)
+        else {
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            return UIViewPropertyAnimator()
+        }
+        let containerView = transitionContext.containerView
+        containerView.backgroundColor = UIColor.white
+        containerView.insertSubview(toVC.view, belowSubview: toVC.view)
+        
+        toVC.view.alpha = 0
+        fromVC.view.alpha = 1
+        let animator = UIViewPropertyAnimator(
+            duration: transitionDuration(using: transitionContext),
+            curve: .easeOut) {
+                toVC.view.alpha = 1
+                fromVC.view.alpha = 0
+            }
+        
         animator.addCompletion { position in
             switch position {
             case .start:
-                fromView.alpha = 1
+                fromVC.view.alpha = 1
+                toVC.view.alpha = 0
+                self.animator = nil
             case .end:
-                fromView.alpha = 0
+                toVC.view.alpha = 1
+                fromVC.view.alpha = 0
             case .current: break
             @unknown default: break
             }
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            // black screen after transition
+            UIApplication.shared.keyWindow?.addSubview(toVC.view)
+            
         }
+        self.animator = animator
         return animator
     }
 }
