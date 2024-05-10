@@ -10,6 +10,7 @@ import UIKit
 class UIInteractablePresentationController: UIPresentationController {
     
     let panGestureRecognizer = UIPanGestureRecognizer()
+    let transactionId: String
     
     override func presentationTransitionWillBegin() {
         print("call presentationTransitionWillBegin")
@@ -17,6 +18,11 @@ class UIInteractablePresentationController: UIPresentationController {
         guard let presentedView = presentedView else { return }
         presentedView.addGestureRecognizer(panGestureRecognizer)
     }
+    
+    init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, transactionId: String) {
+            self.transactionId = transactionId
+            super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        }
     
     override func presentationTransitionDidEnd(_ completed: Bool) {
         print("call presentationTransitionDidEnd: \(completed)")

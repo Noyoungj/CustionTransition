@@ -9,7 +9,13 @@ import UIKit
 
 class DismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     private var animator: UIViewImplicitlyAnimating?
-        
+    private var frame: CGRect
+    private let transitionId: String
+    
+    init(frame: CGRect, transitionId: String) {
+        self.frame = frame
+        self.transitionId = transitionId
+    }
     func transitionDuration(using transitionContext: (any UIViewControllerContextTransitioning)?) -> TimeInterval {
         return 1
     }
@@ -29,40 +35,54 @@ class DismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let rootVC = transitionContext.viewController(forKey: .from)
         let _fromVC = rootVC?.navigationController?.topViewController ?? rootVC
         guard let fromVC = _fromVC,
-              let toVC = transitionContext.viewController(forKey: .to)
-        else {
+            let targetView = fromVC.view.view(withId: transitionId),
+            let toVC = transitionContext.viewController(forKey: .to),
+            let snapshot = targetView.snapshotView(afterScreenUpdates: true)
+            else {
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            return UIViewPropertyAnimator()
+                return UIViewPropertyAnimator()
         }
-        let containerView = transitionContext.containerView
-        containerView.backgroundColor = UIColor.white
-        containerView.insertSubview(toVC.view, belowSubview: toVC.view)
         
-        toVC.view.alpha = 0
-        fromVC.view.alpha = 1
+        let initialFrame = targetView.frame
+        let finalFrame = self.frame
+
+        let containerView = transitionContext.containerView
+        containerView.backgroundColor = UIColor.clear
+        containerView.insertSubview(toVC.view, belowSubview: toVC.view)
+        containerView.addSubview(snapshot)
+        snapshot.frame = initialFrame
+        
+        toVC.view.alpha = 1
+        fromVC.view.alpha = 0
+        targetView.alpha = 0
+
         let animator = UIViewPropertyAnimator(
             duration: transitionDuration(using: transitionContext),
             curve: .easeOut) {
                 toVC.view.alpha = 1
                 fromVC.view.alpha = 0
+                snapshot.frame = finalFrame
             }
         
         animator.addCompletion { position in
             switch position {
             case .start:
                 fromVC.view.alpha = 1
-                toVC.view.alpha = 0
+                toVC.view.alpha = 1
+                targetView.alpha = 1
                 self.animator = nil
+                snapshot.removeFromSuperview()
+                UIApplication.shared.keyWindow?.addSubview(fromVC.view)
             case .end:
                 toVC.view.alpha = 1
                 fromVC.view.alpha = 0
+                targetView.alpha = 0
+                UIApplication.shared.keyWindow?.addSubview(toVC.view)
             case .current: break
             @unknown default: break
             }
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             // black screen after transition
-            UIApplication.shared.keyWindow?.addSubview(toVC.view)
-            
         }
         self.animator = animator
         return animator

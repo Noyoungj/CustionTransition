@@ -10,13 +10,14 @@ import SnapKit
 import Then
 
 class ViewController: UIViewController {
+    let imageUrlString = "https://raw.githubusercontent.com/onevcat/Kingfisher-TestImages/master/DemoAppImage/Loading/kingfisher-5.jpg"
+
     var transition : MyCustomTransition?
     var dismissal: InteractiveTransition?
     var uiPresentation: UIInteractablePresentationController?
     
     private let button = UIButton().then{
-        $0.setTitle("다음 페이지", for: .normal)
-        $0.backgroundColor = .red
+        $0.transitionId = "image_1"
         $0.addTarget(self, action: #selector(nextViewAction(_:)), for: .touchUpInside)
     }
     
@@ -32,24 +33,40 @@ class ViewController: UIViewController {
                 .equalTo(100)
         }
     }
+    
+    //MARK: - Action Method
     @objc
     private func nextViewAction(_ sender: UIButton) {
         let nextVC = SecondViewController()
         nextVC.transitioningDelegate = self
-        transition = MyCustomTransition(originFrame: self.button.frame, originPoint: self.button.center)
+        transition = MyCustomTransition(originFrame: self.button.frame, transitionId: "image_1")
         nextVC.modalPresentationStyle = .custom
-        self.uiPresentation = UIInteractablePresentationController(presentedViewController: nextVC, presenting: self)
-        dismissal = InteractiveTransition(gesture: self.uiPresentation!.panGestureRecognizer, animator: DismissAnimation(), presented: nextVC)
-
+        self.uiPresentation = UIInteractablePresentationController(presentedViewController: nextVC, presenting: self, transactionId: "image_1")
+        dismissal = InteractiveTransition(gesture: self.uiPresentation!.panGestureRecognizer, animator: DismissAnimation(frame: button.frame,transitionId: "image_1"), presented: nextVC)
         self.present(nextVC, animated: true)
     }
+    
+    //MARK: - Method
+    private func loadImage(_ urlString: String) {
+        DispatchQueue.global().async {
+            guard let url = URL(string: urlString), let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.button.setImage(UIImage(data: data), for: .normal)
+                self.button.layoutIfNeeded()
+            }
+        }
+    }
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .yellow
         // Do any additional setup after loading the view.
         addSubviews()
         setLayouts()
-
+        
+        loadImage(self.imageUrlString)
     }
 
 
@@ -61,7 +78,7 @@ extension ViewController: UIViewControllerTransitioningDelegate {
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
-        return DismissAnimation()
+        return DismissAnimation(frame: self.button.frame,transitionId: "image_1")
     }
     
     func interactionControllerForDismissal(using animator: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {

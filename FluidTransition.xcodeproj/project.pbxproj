@@ -15,6 +15,7 @@
 		922B86812BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */; };
 		92423A132BDB8AAA00881705 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92423A122BDB8AAA00881705 /* SecondViewController.swift */; };
 		92423A152BDB8ACA00881705 /* MyCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92423A142BDB8ACA00881705 /* MyCustomTransition.swift */; };
+		92A606962BEC885100411491 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A606952BEC885100411491 /* UIView+.swift */; };
 		92C733EB2BDB8981007D51ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C733EA2BDB8981007D51ED /* AppDelegate.swift */; };
 		92C733ED2BDB8981007D51ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C733EC2BDB8981007D51ED /* SceneDelegate.swift */; };
 		92C733EF2BDB8981007D51ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C733EE2BDB8981007D51ED /* ViewController.swift */; };
@@ -53,6 +54,7 @@
 		922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractivePercentDrivenTransition.swift; sourceTree = "<group>"; };
 		92423A122BDB8AAA00881705 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		92423A142BDB8ACA00881705 /* MyCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTransition.swift; sourceTree = "<group>"; };
+		92A606952BEC885100411491 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		92C733E72BDB8981007D51ED /* FluidTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluidTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C733EA2BDB8981007D51ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92C733EC2BDB8981007D51ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				922B867C2BDF8651007F3D44 /* InteractiveTransition.swift */,
 				922B867E2BDF8844007F3D44 /* UIInteractablePresentationController.swift */,
 				922B86802BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift */,
+				92A606952BEC885100411491 /* UIView+.swift */,
 			);
 			path = FluidTransition;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				92423A132BDB8AAA00881705 /* SecondViewController.swift in Sources */,
 				92C733EF2BDB8981007D51ED /* ViewController.swift in Sources */,
 				92C733EB2BDB8981007D51ED /* AppDelegate.swift in Sources */,
+				92A606962BEC885100411491 /* UIView+.swift in Sources */,
 				92C733ED2BDB8981007D51ED /* SceneDelegate.swift in Sources */,
 				922B86812BDF8C45007F3D44 /* InteractivePercentDrivenTransition.swift in Sources */,
 				922B867F2BDF8844007F3D44 /* UIInteractablePresentationController.swift in Sources */,

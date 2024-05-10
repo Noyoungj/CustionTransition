@@ -55,6 +55,9 @@ internal class InteractiveTransition: NSObject, UIViewControllerInteractiveTrans
             guard let view = gesture.view else { return }
             let delta = gesture.translation(in: view)
             let percent = abs(delta.y / view.bounds.size.width)
+            if percent > 0.3 {
+                
+            }
             self.update(percent)
         case .ended:
             guard let view = gesture.view else { return }
